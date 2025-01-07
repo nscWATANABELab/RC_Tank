@@ -44,8 +44,8 @@ def setup_temp_folder():
     if os.path.exists(TEMP_FOLDER):
         for file_name in os.listdir(TEMP_FOLDER):
             file_path = os.path.join(TEMP_FOLDER, file_name)
-    if os.path.isfile(file_path):
-        os.remove(file_path)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
     else:
         os.makedirs(TEMP_FOLDER)
 
