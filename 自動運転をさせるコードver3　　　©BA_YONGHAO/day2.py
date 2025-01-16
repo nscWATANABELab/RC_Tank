@@ -10,7 +10,7 @@
 from time import sleep
 from pi_Utils import *
 
-def tank_Control():
+def keyboard_Control():
     '''
         @ description:'Move pi_Tank by using pygame',
         @ param:'key:{Forward : 2, Left : 0, Right : 1, Back : 3}',
@@ -18,6 +18,7 @@ def tank_Control():
     '''
     tank_Running = True
     global key
+    key = 4
     pygame.init()
     pygame.display.set_mode((1,1)) #Actually shows nothing.
     stop()
@@ -30,38 +31,28 @@ def tank_Control():
                 key_input = pygame.key.get_pressed()
                 #wprint(key_input[pygame.K_s], key_input[pygame.K_a], key_input[pygame.K_d])
                 if key_input[pygame.K_w]:
-                    print("Forward Down")
                     key = 2
-                    sleep(0.1)
-                    move_forward()
                 elif key_input[pygame.K_a]:
-                    print("Left Down")
                     key = 0
-                    turn_left()
-                    sleep(0.1)
                 elif key_input[pygame.K_d]:
-                    print("Right Down")
                     key = 1
-                    turn_right()
-                    sleep(0.1)
                 elif key_input[pygame.K_s]:
-                    print("Backward Down")
                     key = 3
-                    move_backward()
-                    sleep(0.1)
                 elif key_input[pygame.K_k]:
                     stop()
             elif event.type == pygame.KEYUP:
                 print("Stop")
-                #key = None
+                key = 4
                 stop()
+            if key is not None:
+                key = tank_Control(key)
     tank_Running = False
     clean_GPIO()
 
 if __name__ == "__main__":
     tank_Running = True
     try:
-        tank_Control()
+        keyboard_Control()
         while tank_Running:
             pass
         print("Done!")

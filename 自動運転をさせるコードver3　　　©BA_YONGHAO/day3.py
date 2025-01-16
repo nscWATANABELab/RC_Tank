@@ -4,7 +4,7 @@
 @ Author: Rindon
 @ Date: 2024-03-24 20:22:52
 @ LastEditors: Rindon
-@ LastEditTime: 2025-01-06 16:32:50
+@ LastEditTime: 2025-01-16 14:18:49
 @ Description: Day 3 lesson: collect data (Modified for Picamera2) 
 '''
 from pi_Utils import *
@@ -74,8 +74,7 @@ def pi_Capture():
     picam2 = Picamera2()
 
     # ビデオモードに変更
-    # yoloのデフォルト入力サイズが６４０*６４０ので、ここでサイズを６４０*６４０になったほうがいい。
-    video_config = picam2.create_video_configuration(main={"size": (320, 240)}, buffer_count=4)
+    video_config = picam2.create_video_configuration(main={"size": (1280, 960)}, buffer_count=4)
     picam2.configure(video_config)
 
     # カメラスタート
@@ -90,7 +89,6 @@ def pi_Capture():
     try:
         while time() - start < duration:
             frame = picam2.capture_array()  # フレームデータを取る
-            #encoded_frame = picam2.encode_jpeg(frame)  # この関数がpicameraにあったが、今は使ってない
             output.write(frame)  # フレームを保存
     except KeyboardInterrupt:
         print("キャプチャ中止")
@@ -113,7 +111,7 @@ if __name__ == "__main__":
     capture_thread.start()
 
     try:
-        tank_Control() 
+        keyboard_Control() 
         while tank_Running:
             pass
         print("Done!")

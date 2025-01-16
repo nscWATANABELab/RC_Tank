@@ -4,7 +4,7 @@
 @ Author: Rindon
 @ Date: 2024-03-24 19:43:49
 @ LastEditors: Rindon
-@ LastEditTime: 2024-03-27 16:32:34
+@ LastEditTime: 2025-01-16 14:23:15
 @ Description: Utils functions
 '''
 
@@ -62,31 +62,48 @@ def stop():
 def clean_GPIO():
     GPIO.cleanup()
 
+def tank_Control(key):
+    '''
+        @ description:'Move piTank by key.',
+        @ param:'Key',
+        @ return:'None.'
+    '''
+    if(key == 0):
+        print("Turn left")
+        turn_left()
+        time.sleep(0.2)
+        stop()
+    elif(key == 1):
+        print("Turn right")
+        turn_right()
+        time.sleep(0.2)
+        stop()
+    elif(key == 2):
+        print("Move forward")
+        move_forward()
+        time.sleep(0.2)
+        stop()
+    elif(key == 3):
+        print("Move backward")
+        move_backward()
+        time.sleep(0.2)
+        stop()
+    else:
+        stop()
+        
 def test_Control():
     '''
         @ description:'Check the piTank by doing all the actions.',
         @ param:'None',
         @ return:'None.'
     '''
-    move_forward()
-    time.sleep(0.2)
-    print('forward')
-    stop()
-    time.sleep(0.5)
-    move_backward()
-    time.sleep(0.2)
-    print('backward')
-    stop()
-    time.sleep(0.5)
-    turn_left()
-    time.sleep(0.2)
-    print('left')
-    stop()
-    time.sleep(0.5)
-    turn_right()
-    time.sleep(0.2)
-    print('right')
-    stop()
+    tank_Control(0)
+    time.sleep(1)
+    tank_Control(1)
+    time.sleep(1)
+    tank_Control(2)
+    time.sleep(1)
+    tank_Control(3)
 
 if __name__ == "__main__":
     test_Control()

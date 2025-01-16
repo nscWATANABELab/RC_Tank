@@ -19,7 +19,7 @@ def camera_Check():
     '''
     picam = Picamera2()
 
-    config = picam.create_preview_configuration(main={"size": (320, 240)})
+    config = picam.create_preview_configuration(main={"size": (1280, 960)})
     picam.configure(config)
 
     picam.start_preview(Preview.QTGL)
